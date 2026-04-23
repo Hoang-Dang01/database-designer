@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Mục Công Việc (JOB)</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
+        
+        <header>
+            <h2><i class="fa-solid fa-briefcase"></i> Danh Mục Công Việc (JOB)</h2>
+        </header>
+
+        <div class="card">
+            <h3>Thêm Công Việc Mới</h3>
+            <br>
+            <form id="formJob">
+                <div class="form-group">
+                    <label>Mã Công việc (JobID):</label>
+                    <input type="number" name="JobID" required>
+                </div>
+                <div class="form-group">
+                    <label>Tên Công việc (JobTitle):</label>
+                    <input type="text" name="JobTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả (Description):</label>
+                    <input type="text" name="Description">
+                </div>
+                <button type="submit">Thêm JOB</button>
+            </form>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            <h3>Danh sách Công việc</h3>
+            <table id="tableJob">
+                <thead>
+                    <tr>
+                        <th>JobID</th>
+                        <th>JobTitle</th>
+                        <th>Description</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const columns = ['JobID', 'JobTitle', 'Description'];
+            const reload = () => loadTable('jobs', 'tableJob', columns, 'JobID');
+            reload();
+            handleFormSubmit('formJob', 'jobs', reload);
+        });
+    </script>
+</body>
+</html>

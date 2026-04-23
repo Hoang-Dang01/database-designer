@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Cư Dân (COLONIST)</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
+        
+        <header>
+            <h2><i class="fa-solid fa-users"></i> Quản lý Cư Dân (COLONIST)</h2>
+        </header>
+
+        <div class="card">
+            <h3>Thêm Cư Dân Mới</h3>
+            <br>
+            <form id="formColonist">
+                <div class="nav-grid">
+                    <div class="form-group">
+                        <label>Mã cư dân (MarsColonizationID):</label>
+                        <input type="text" name="MarsColonizationID" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Họ và Tên (Name):</label>
+                        <input type="text" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Giới tính (Gender):</label>
+                        <select name="Gender" required>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                            <option value="Other">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày sinh (DateOfBirth):</label>
+                        <input type="date" name="DateOfBirth" required>
+                    </div>
+                </div>
+
+                <div class="nav-grid">
+                    <div class="form-group">
+                        <label>Địa chỉ Trái Đất (EarthAddress):</label>
+                        <input type="text" name="EarthAddress">
+                    </div>
+                    <div class="form-group">
+                        <label>Tình trạng hôn nhân (CivilStatus):</label>
+                        <select name="CivilStatus" required>
+                            <option value="Single">Độc thân</option>
+                            <option value="Married">Đã kết hôn</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại Trái Đất (ContactNo):</label>
+                        <input type="text" name="ContactNo">
+                    </div>
+                    <div class="form-group">
+                        <label>Bằng cấp đa trị (Cách nhau bằng dấu phẩy):</label>
+                        <input type="text" name="Qualifications" placeholder="BSc, MSc...">
+                    </div>
+                </div>
+
+                <div class="nav-grid">
+                    <div class="form-group">
+                        <label>Phân bổ Chỗ ở (LotNumber):</label>
+                        <select id="selectLotNumber" name="LotNumber"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Đi chuyến bay nào (TripID):</label>
+                        <select id="selectTripID" name="TripID" required></select>
+                    </div>
+                </div>
+
+                <button type="submit">Thêm COLONIST</button>
+            </form>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            <h3>Danh sách Cư Dân</h3>
+            <table id="tableColonist" style="font-size: 0.85rem;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Earth Address</th>
+                        <th>Status</th>
+                        <th>Phone</th>
+                        <th>Qualifications (Đa trị)</th>
+                        <th>Lot Number</th>
+                        <th>Trip ID</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load dropdowns
+            loadDropdown('houses', 'selectLotNumber', 'LotNumber', 'LotNumber');
+            loadDropdown('trips', 'selectTripID', 'TripID', 'LaunchDate');
+
+            const columns = ['MarsColonizationID', 'Name', 'Gender', 'DateOfBirth', 'EarthAddress', 'CivilStatus', 'ContactNo', 'Qualifications', 'LotNumber', 'TripID'];
+            const reload = () => loadTable('colonists', 'tableColonist', columns, 'MarsColonizationID');
+            reload();
+            handleFormSubmit('formColonist', 'colonists', reload);
+        });
+    </script>
+</body>
+</html>

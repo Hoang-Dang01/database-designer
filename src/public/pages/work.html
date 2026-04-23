@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Phân công Công việc (WORK)</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
+        
+        <header>
+            <h2><i class="fa-solid fa-clipboard-user"></i> Phân Công Công Việc (WORK)</h2>
+        </header>
+
+        <div class="card">
+            <h3>Tạo Phân Công Mới</h3>
+            <br>
+            <form id="formWork">
+                <div class="form-group">
+                    <label>Chọn Cư dân (MarsColonizationID):</label>
+                    <select id="selectColonistID" name="MarsColonizationID" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Chọn Công việc (JobID):</label>
+                    <select id="selectJobID" name="JobID" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái (Status):</label>
+                    <select name="Status" required>
+                        <option value="Active">Đang làm việc (Active)</option>
+                        <option value="Completed">Đã hoàn thành (Completed)</option>
+                        <option value="Terminated">Đã nghỉ (Terminated)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ngày nhận việc (AssignedDate):</label>
+                    <input type="date" name="AssignedDate" required>
+                </div>
+                <button type="submit">Phân công ngay</button>
+            </form>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            <h3>Bảng Phân Công</h3>
+            <table id="tableWork">
+                <thead>
+                    <tr>
+                        <th>Cư Dân (MarsColonizationID)</th>
+                        <th>Công Việc (JobID)</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày nhận việc</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load 2 dropdowns
+            const formatColonist = (item) => `${item.MarsColonizationID} - ${item.Name}`;
+            loadDropdown('colonists', 'selectColonistID', 'MarsColonizationID', formatColonist);
+            loadDropdown('jobs', 'selectJobID', 'JobID', 'JobTitle');
+
+            const columns = ['MarsColonizationID', 'JobID', 'Status', 'AssignedDate'];
+            // Truyền một field giả vì bảng WORK xóa bằng cả 2 field (đã được xử lý riêng trong main.js)
+            const reload = () => loadTable('works', 'tableWork', columns, 'MarsColonizationID');
+            reload();
+            handleFormSubmit('formWork', 'works', reload);
+        });
+    </script>
+</body>
+</html>

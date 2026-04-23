@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Chỗ Ở (HOUSE)</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
+        
+        <header>
+            <h2><i class="fa-solid fa-house-chimney"></i> Quản lý Chỗ Ở (HOUSE)</h2>
+        </header>
+
+        <div class="card">
+            <h3>Thêm Chỗ Ở Mới</h3>
+            <br>
+            <form id="formHouse">
+                <div class="form-group">
+                    <label>Mã lô đất (LotNumber):</label>
+                    <input type="text" name="LotNumber" required>
+                </div>
+                <div class="form-group">
+                    <label>Số phòng (NumberOfRoom):</label>
+                    <input type="number" name="NumberOfRoom" required>
+                </div>
+                <div class="form-group">
+                    <label>Diện tích feet vuông (SquareFeet):</label>
+                    <input type="number" name="SquareFeet" required>
+                </div>
+                <button type="submit">Thêm HOUSE</button>
+            </form>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            <h3>Danh sách Chỗ Ở</h3>
+            <table id="tableHouse">
+                <thead>
+                    <tr>
+                        <th>LotNumber</th>
+                        <th>Number Of Room</th>
+                        <th>Square Feet</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const columns = ['LotNumber', 'NumberOfRoom', 'SquareFeet'];
+            const reload = () => loadTable('houses', 'tableHouse', columns, 'LotNumber');
+            reload();
+            handleFormSubmit('formHouse', 'houses', reload);
+        });
+    </script>
+</body>
+</html>

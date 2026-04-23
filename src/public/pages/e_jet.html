@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Tàu Vũ Trụ (E_JET)</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
+        
+        <header>
+            <h2><i class="fa-solid fa-space-shuttle"></i> Quản lý E-JET</h2>
+        </header>
+
+        <div class="card">
+            <h3>Thêm Tàu Vũ Trụ Mới</h3>
+            <br>
+            <form id="formEjet">
+                <div class="form-group">
+                    <label>Mã tàu (JetCode):</label>
+                    <input type="text" name="JetCode" required>
+                </div>
+                <div class="form-group">
+                    <label>Nguồn năng lượng (PowerSource):</label>
+                    <input type="text" name="PowerSource" required>
+                </div>
+                <div class="form-group">
+                    <label>Số ghế (NumberOfSeat):</label>
+                    <input type="number" name="NumberOfSeat" required>
+                </div>
+                <div class="form-group">
+                    <label>Trọng tải (Weight):</label>
+                    <input type="number" step="0.01" name="Weight" required>
+                </div>
+                <div class="form-group">
+                    <label>Công suất hạt nhân (NuclearEnginePower):</label>
+                    <input type="text" name="NuclearEnginePower">
+                </div>
+                <div class="form-group">
+                    <label>Năm sản xuất (MadeYear):</label>
+                    <input type="number" name="MadeYear" required>
+                </div>
+                <div class="form-group">
+                    <label>Phân loại (JetType):</label>
+                    <select name="JetType" required>
+                        <option value="Passenger">Chở khách</option>
+                        <option value="Cargo">Chở hàng</option>
+                        <option value="Military">Quân sự</option>
+                    </select>
+                </div>
+                <button type="submit">Thêm E-JET</button>
+            </form>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            <h3>Danh sách Tàu Vũ Trụ</h3>
+            <table id="tableEjet">
+                <thead>
+                    <tr>
+                        <th>JetCode</th>
+                        <th>PowerSource</th>
+                        <th>Seats</th>
+                        <th>Weight</th>
+                        <th>Nuclear Power</th>
+                        <th>Year</th>
+                        <th>Type</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const columns = ['JetCode', 'PowerSource', 'NumberOfSeat', 'Weight', 'NuclearEnginePower', 'MadeYear', 'JetType'];
+            const reload = () => loadTable('ejets', 'tableEjet', columns, 'JetCode');
+            reload();
+            handleFormSubmit('formEjet', 'ejets', reload);
+        });
+    </script>
+</body>
+</html>
