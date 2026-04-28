@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Quản lý Người Phụ Thuộc (DEPENDENT)</title>
@@ -7,83 +7,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-rocket"></i> MARS</a>
+        <a href="e_jet.html"><i class="fa-solid fa-space-shuttle"></i> E-JET</a>
+        <a href="house.html"><i class="fa-solid fa-house-chimney"></i> HOUSE</a>
+        <a href="job.html"><i class="fa-solid fa-briefcase"></i> JOB</a>
+        <a href="pilot.html"><i class="fa-solid fa-user-astronaut"></i> PILOT</a>
+        <a href="trip.html"><i class="fa-solid fa-route"></i> TRIP</a>
+        <a href="colonist.html"><i class="fa-solid fa-users"></i> COLONIST</a>
+        <a href="dependent.html" class="active"><i class="fa-solid fa-children"></i> DEPENDENT</a>
+        <a href="work.html"><i class="fa-solid fa-clipboard-user"></i> WORK</a>
+        <div class="nav-controls">
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-lang');document.documentElement.setAttribute('data-lang',c==='vi'?'en':'vi')"><i class="fa-solid fa-language"></i><span class="vi-text">VNI</span><span class="en-text">ENG</span></button>
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')"><i class="fa-solid fa-circle-half-stroke"></i><span class="vi-text">GIAO DIỆN</span><span class="en-text">THEME</span></button>
+        </div>
+    </nav>
     <div class="container">
-        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
-        
-        <header>
-            <h2><i class="fa-solid fa-children"></i> Quản lý Người Phụ Thuộc (DEPENDENT)</h2>
-        </header>
-
+        <header><h2><i class="fa-solid fa-children"></i> <span data-vi="Quản lý Người Phụ Thuộc" data-en="Dependent Management">Quản lý Người Phụ Thuộc</span></h2></header>
         <div class="card">
-            <h3>Thêm Người Phụ Thuộc Mới</h3>
-            <br>
+            <h3 data-vi="Thêm Người Phụ Thuộc Mới" data-en="Add New Dependent">Thêm Người Phụ Thuộc Mới</h3><br>
             <form id="formDependent">
-                <div class="form-group">
-                    <label>Mã Người phụ thuộc (DependentID):</label>
-                    <input type="number" name="DependentID" required>
-                </div>
-                <div class="form-group">
-                    <label>Thuộc về Cư dân (MarsColonizationID):</label>
-                    <!-- Tự động load danh sách cư dân -->
-                    <select id="selectColonistID" name="MarsColonizationID" required></select>
-                </div>
-                <div class="form-group">
-                    <label>Họ và Tên (Name):</label>
-                    <input type="text" name="Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Ngày sinh (DateOfBirth):</label>
-                    <input type="date" name="DateOfBirth" required>
-                </div>
-                <div class="form-group">
-                    <label>Giới tính (Gender):</label>
-                    <select name="Gender" required>
-                        <option value="Male">Nam</option>
-                        <option value="Female">Nữ</option>
-                        <option value="Other">Khác</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Mối quan hệ (Relationship):</label>
-                    <select name="Relationship" required>
-                        <option value="Spouse">Vợ / Chồng (Spouse)</option>
-                        <option value="Child">Con cái (Child)</option>
-                        <option value="Parent">Cha mẹ (Parent)</option>
-                    </select>
-                </div>
-                <button type="submit">Thêm DEPENDENT</button>
+                <div class="form-group"><label data-vi="Mã người phụ thuộc:" data-en="Dependent ID:">Mã người phụ thuộc:</label><input type="number" name="DependentID" required></div>
+                <div class="form-group"><label data-vi="Thuộc về cư dân:" data-en="Belongs to Colonist:">Thuộc về cư dân:</label><select id="selectColonistID" name="MarsColonizationID" required></select></div>
+                <div class="form-group"><label data-vi="Họ và tên:" data-en="Full Name:">Họ và tên:</label><input type="text" name="Name" required></div>
+                <div class="form-group"><label data-vi="Ngày sinh:" data-en="Date of Birth:">Ngày sinh:</label><input type="date" name="DateOfBirth" required></div>
+                <div class="form-group"><label data-vi="Giới tính:" data-en="Gender:">Giới tính:</label>
+                    <select name="Gender" required><option value="Male" data-vi="Nam" data-en="Male">Nam</option><option value="Female" data-vi="Nữ" data-en="Female">Nữ</option><option value="Other" data-vi="Khác" data-en="Other">Khác</option></select></div>
+                <div class="form-group"><label data-vi="Mối quan hệ:" data-en="Relationship:">Mối quan hệ:</label>
+                    <select name="Relationship" required><option value="Spouse" data-vi="Vợ / Chồng" data-en="Spouse">Vợ / Chồng</option><option value="Child" data-vi="Con cái" data-en="Child">Con cái</option><option value="Parent" data-vi="Cha mẹ" data-en="Parent">Cha mẹ</option></select></div>
+                <button type="submit" data-vi="Thêm người phụ thuộc" data-en="Add Dependent">Thêm người phụ thuộc</button>
             </form>
         </div>
-
         <div class="card" style="overflow-x: auto;">
-            <h3>Danh sách Người Phụ Thuộc</h3>
-            <table id="tableDependent">
-                <thead>
-                    <tr>
-                        <th>DependentID</th>
-                        <th>MarsColonizationID (Cư dân)</th>
-                        <th>Name</th>
-                        <th>DOB</th>
-                        <th>Gender</th>
-                        <th>Relationship</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <h3 data-vi="Danh sách Người Phụ Thuộc" data-en="Dependent List">Danh sách Người Phụ Thuộc</h3>
+            <table id="tableDependent"><thead><tr>
+                <th data-vi="Mã NPT" data-en="ID">Mã NPT</th><th data-vi="Cư dân" data-en="Colonist">Cư dân</th><th data-vi="Họ tên" data-en="Name">Họ tên</th><th data-vi="Ngày sinh" data-en="DOB">Ngày sinh</th><th data-vi="Giới tính" data-en="Gender">Giới tính</th><th data-vi="Quan hệ" data-en="Relationship">Quan hệ</th><th data-vi="Thao tác" data-en="Actions">Thao tác</th>
+            </tr></thead><tbody></tbody></table>
         </div>
     </div>
-
+    <script src="../js/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const formatColonist = (item) => `${item.MarsColonizationID} - ${item.Name}`;
             loadDropdown('colonists', 'selectColonistID', 'MarsColonizationID', formatColonist);
-
             const columns = ['DependentID', 'MarsColonizationID', 'Name', 'DateOfBirth', 'Gender', 'Relationship'];
             const reload = () => loadTable('dependents', 'tableDependent', columns, 'DependentID');
-            reload();
-            handleFormSubmit('formDependent', 'dependents', reload);
+            reload(); handleFormSubmit('formDependent', 'dependents', reload);
         });
     </script>
 </body>

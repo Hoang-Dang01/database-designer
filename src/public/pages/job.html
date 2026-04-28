@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Danh Mục Công Việc (JOB)</title>
@@ -7,49 +7,66 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-rocket"></i> MARS</a>
+        <a href="e_jet.html"><i class="fa-solid fa-space-shuttle"></i> E-JET</a>
+        <a href="house.html"><i class="fa-solid fa-house-chimney"></i> HOUSE</a>
+        <a href="job.html" class="active"><i class="fa-solid fa-briefcase"></i> JOB</a>
+        <a href="pilot.html"><i class="fa-solid fa-user-astronaut"></i> PILOT</a>
+        <a href="trip.html"><i class="fa-solid fa-route"></i> TRIP</a>
+        <a href="colonist.html"><i class="fa-solid fa-users"></i> COLONIST</a>
+        <a href="dependent.html"><i class="fa-solid fa-children"></i> DEPENDENT</a>
+        <a href="work.html"><i class="fa-solid fa-clipboard-user"></i> WORK</a>
+        <div class="nav-controls">
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-lang');document.documentElement.setAttribute('data-lang',c==='vi'?'en':'vi')">
+                <i class="fa-solid fa-language"></i>
+                <span class="vi-text">VNI</span><span class="en-text">ENG</span>
+            </button>
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+                <span class="vi-text">GIAO DIỆN</span><span class="en-text">THEME</span>
+            </button>
+        </div>
+    </nav>
     <div class="container">
-        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
-        
         <header>
-            <h2><i class="fa-solid fa-briefcase"></i> Danh Mục Công Việc (JOB)</h2>
+            <h2><i class="fa-solid fa-briefcase"></i> <span data-vi="Danh Mục Công Việc" data-en="Job Directory">Danh Mục Công Việc</span></h2>
         </header>
-
         <div class="card">
-            <h3>Thêm Công Việc Mới</h3>
+            <h3 data-vi="Thêm Công Việc Mới" data-en="Add New Job">Thêm Công Việc Mới</h3>
             <br>
             <form id="formJob">
                 <div class="form-group">
-                    <label>Mã Công việc (JobID):</label>
+                    <label data-vi="Mã công việc:" data-en="Job ID:">Mã công việc:</label>
                     <input type="number" name="JobID" required>
                 </div>
                 <div class="form-group">
-                    <label>Tên Công việc (JobTitle):</label>
+                    <label data-vi="Tên công việc:" data-en="Job Title:">Tên công việc:</label>
                     <input type="text" name="JobTitle" required>
                 </div>
                 <div class="form-group">
-                    <label>Mô tả (Description):</label>
+                    <label data-vi="Mô tả:" data-en="Description:">Mô tả:</label>
                     <input type="text" name="Description">
                 </div>
-                <button type="submit">Thêm JOB</button>
+                <button type="submit" data-vi="Thêm công việc" data-en="Add Job">Thêm công việc</button>
             </form>
         </div>
-
         <div class="card" style="overflow-x: auto;">
-            <h3>Danh sách Công việc</h3>
+            <h3 data-vi="Danh sách Công việc" data-en="Job List">Danh sách Công việc</h3>
             <table id="tableJob">
                 <thead>
                     <tr>
-                        <th>JobID</th>
-                        <th>JobTitle</th>
-                        <th>Description</th>
-                        <th>Thao tác</th>
+                        <th data-vi="Mã CV" data-en="Job ID">Mã CV</th>
+                        <th data-vi="Tên công việc" data-en="Job Title">Tên công việc</th>
+                        <th data-vi="Mô tả" data-en="Description">Mô tả</th>
+                        <th data-vi="Thao tác" data-en="Actions">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
     </div>
-
+    <script src="../js/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

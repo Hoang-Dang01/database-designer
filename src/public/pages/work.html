@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Phân công Công việc (WORK)</title>
@@ -7,71 +7,51 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-rocket"></i> MARS</a>
+        <a href="e_jet.html"><i class="fa-solid fa-space-shuttle"></i> E-JET</a>
+        <a href="house.html"><i class="fa-solid fa-house-chimney"></i> HOUSE</a>
+        <a href="job.html"><i class="fa-solid fa-briefcase"></i> JOB</a>
+        <a href="pilot.html"><i class="fa-solid fa-user-astronaut"></i> PILOT</a>
+        <a href="trip.html"><i class="fa-solid fa-route"></i> TRIP</a>
+        <a href="colonist.html"><i class="fa-solid fa-users"></i> COLONIST</a>
+        <a href="dependent.html"><i class="fa-solid fa-children"></i> DEPENDENT</a>
+        <a href="work.html" class="active"><i class="fa-solid fa-clipboard-user"></i> WORK</a>
+        <div class="nav-controls">
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-lang');document.documentElement.setAttribute('data-lang',c==='vi'?'en':'vi')"><i class="fa-solid fa-language"></i><span class="vi-text">VNI</span><span class="en-text">ENG</span></button>
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')"><i class="fa-solid fa-circle-half-stroke"></i><span class="vi-text">GIAO DIỆN</span><span class="en-text">THEME</span></button>
+        </div>
+    </nav>
     <div class="container">
-        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
-        
-        <header>
-            <h2><i class="fa-solid fa-clipboard-user"></i> Phân Công Công Việc (WORK)</h2>
-        </header>
-
+        <header><h2><i class="fa-solid fa-clipboard-user"></i> <span data-vi="Phân Công Công Việc" data-en="Work Assignments">Phân Công Công Việc</span></h2></header>
         <div class="card">
-            <h3>Tạo Phân Công Mới</h3>
-            <br>
+            <h3 data-vi="Tạo Phân Công Mới" data-en="Create New Assignment">Tạo Phân Công Mới</h3><br>
             <form id="formWork">
-                <div class="form-group">
-                    <label>Chọn Cư dân (MarsColonizationID):</label>
-                    <select id="selectColonistID" name="MarsColonizationID" required></select>
-                </div>
-                <div class="form-group">
-                    <label>Chọn Công việc (JobID):</label>
-                    <select id="selectJobID" name="JobID" required></select>
-                </div>
-                <div class="form-group">
-                    <label>Trạng thái (Status):</label>
-                    <select name="Status" required>
-                        <option value="Active">Đang làm việc (Active)</option>
-                        <option value="Completed">Đã hoàn thành (Completed)</option>
-                        <option value="Terminated">Đã nghỉ (Terminated)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Ngày nhận việc (AssignedDate):</label>
-                    <input type="date" name="AssignedDate" required>
-                </div>
-                <button type="submit">Phân công ngay</button>
+                <div class="form-group"><label data-vi="Chọn cư dân:" data-en="Select Colonist:">Chọn cư dân:</label><select id="selectColonistID" name="MarsColonizationID" required></select></div>
+                <div class="form-group"><label data-vi="Chọn công việc:" data-en="Select Job:">Chọn công việc:</label><select id="selectJobID" name="JobID" required></select></div>
+                <div class="form-group"><label data-vi="Trạng thái:" data-en="Status:">Trạng thái:</label>
+                    <select name="Status" required><option value="Active" data-vi="Đang làm việc" data-en="Active">Đang làm việc</option><option value="Completed" data-vi="Đã hoàn thành" data-en="Completed">Đã hoàn thành</option><option value="Terminated" data-vi="Đã nghỉ" data-en="Terminated">Đã nghỉ</option></select></div>
+                <div class="form-group"><label data-vi="Ngày nhận việc:" data-en="Assigned Date:">Ngày nhận việc:</label><input type="date" name="AssignedDate" required></div>
+                <button type="submit" data-vi="Phân công ngay" data-en="Assign Now">Phân công ngay</button>
             </form>
         </div>
-
         <div class="card" style="overflow-x: auto;">
-            <h3>Bảng Phân Công</h3>
-            <table id="tableWork">
-                <thead>
-                    <tr>
-                        <th>Cư Dân (MarsColonizationID)</th>
-                        <th>Công Việc (JobID)</th>
-                        <th>Trạng thái</th>
-                        <th>Ngày nhận việc</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <h3 data-vi="Bảng Phân Công" data-en="Assignment Table">Bảng Phân Công</h3>
+            <table id="tableWork"><thead><tr>
+                <th data-vi="Cư dân" data-en="Colonist">Cư dân</th><th data-vi="Công việc" data-en="Job">Công việc</th><th data-vi="Trạng thái" data-en="Status">Trạng thái</th><th data-vi="Ngày nhận" data-en="Date">Ngày nhận</th><th data-vi="Thao tác" data-en="Actions">Thao tác</th>
+            </tr></thead><tbody></tbody></table>
         </div>
     </div>
-
+    <script src="../js/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load 2 dropdowns
             const formatColonist = (item) => `${item.MarsColonizationID} - ${item.Name}`;
             loadDropdown('colonists', 'selectColonistID', 'MarsColonizationID', formatColonist);
             loadDropdown('jobs', 'selectJobID', 'JobID', 'JobTitle');
-
             const columns = ['MarsColonizationID', 'JobID', 'Status', 'AssignedDate'];
-            // Truyền một field giả vì bảng WORK xóa bằng cả 2 field (đã được xử lý riêng trong main.js)
             const reload = () => loadTable('works', 'tableWork', columns, 'MarsColonizationID');
-            reload();
-            handleFormSubmit('formWork', 'works', reload);
+            reload(); handleFormSubmit('formWork', 'works', reload);
         });
     </script>
 </body>

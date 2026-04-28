@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Quản lý Phi hành đoàn (PILOT)</title>
@@ -7,79 +7,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-rocket"></i> MARS</a>
+        <a href="e_jet.html"><i class="fa-solid fa-space-shuttle"></i> E-JET</a>
+        <a href="house.html"><i class="fa-solid fa-house-chimney"></i> HOUSE</a>
+        <a href="job.html"><i class="fa-solid fa-briefcase"></i> JOB</a>
+        <a href="pilot.html" class="active"><i class="fa-solid fa-user-astronaut"></i> PILOT</a>
+        <a href="trip.html"><i class="fa-solid fa-route"></i> TRIP</a>
+        <a href="colonist.html"><i class="fa-solid fa-users"></i> COLONIST</a>
+        <a href="dependent.html"><i class="fa-solid fa-children"></i> DEPENDENT</a>
+        <a href="work.html"><i class="fa-solid fa-clipboard-user"></i> WORK</a>
+        <div class="nav-controls">
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-lang');document.documentElement.setAttribute('data-lang',c==='vi'?'en':'vi')"><i class="fa-solid fa-language"></i><span class="vi-text">VNI</span><span class="en-text">ENG</span></button>
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')"><i class="fa-solid fa-circle-half-stroke"></i><span class="vi-text">GIAO DIỆN</span><span class="en-text">THEME</span></button>
+        </div>
+    </nav>
     <div class="container">
-        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
-        
-        <header>
-            <h2><i class="fa-solid fa-user-astronaut"></i> Quản lý Phi Hành Đoàn (PILOT)</h2>
-        </header>
-
+        <header><h2><i class="fa-solid fa-user-astronaut"></i> <span data-vi="Quản lý Phi Công" data-en="Pilot Management">Quản lý Phi Công</span></h2></header>
         <div class="card">
-            <h3>Thêm Phi Công Mới</h3>
-            <br>
+            <h3 data-vi="Thêm Phi Công Mới" data-en="Add New Pilot">Thêm Phi Công Mới</h3><br>
             <form id="formPilot">
-                <div class="form-group">
-                    <label>Mã Phi công (AstronomersID):</label>
-                    <input type="number" name="AstronomersID" required>
-                </div>
-                <div class="form-group">
-                    <label>Tên Phi công (Name):</label>
-                    <input type="text" name="Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Cấp bậc (Rank):</label>
+                <div class="form-group"><label data-vi="Mã phi công:" data-en="Pilot ID:">Mã phi công:</label><input type="number" name="AstronomersID" required></div>
+                <div class="form-group"><label data-vi="Họ và tên:" data-en="Full Name:">Họ và tên:</label><input type="text" name="Name" required></div>
+                <div class="form-group"><label data-vi="Cấp bậc:" data-en="Rank:">Cấp bậc:</label>
                     <select name="Rank" required>
-                        <option value="Captain">Cơ trưởng (Captain)</option>
-                        <option value="First Officer">Lái phụ (First Officer)</option>
-                        <option value="Engineer">Kỹ sư (Engineer)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Số giờ bay vũ trụ (SpaceHours):</label>
-                    <input type="number" name="SpaceHours" value="0">
-                </div>
-                <div class="form-group">
-                    <label>Các Bằng Cấp (Qualifications - Phân cách bằng dấu phẩy):</label>
-                    <input type="text" name="Qualifications" placeholder="VD: Bằng A, Bằng B...">
-                </div>
-                <div class="form-group">
-                    <label>Phân công lái Tàu Vũ Trụ (JetCode):</label>
-                    <!-- Sử dụng Dropdown để không phải nhập tay -->
-                    <select id="selectJetCode" name="JetCode" required></select>
-                </div>
-                <button type="submit">Thêm PILOT</button>
+                        <option value="Captain" data-vi="Cơ trưởng" data-en="Captain">Cơ trưởng</option>
+                        <option value="First Officer" data-vi="Lái phụ" data-en="First Officer">Lái phụ</option>
+                        <option value="Engineer" data-vi="Kỹ sư" data-en="Engineer">Kỹ sư</option>
+                    </select></div>
+                <div class="form-group"><label data-vi="Số giờ bay vũ trụ:" data-en="Space Flight Hours:">Số giờ bay vũ trụ:</label><input type="number" name="SpaceHours" value="0"></div>
+                <div class="form-group"><label data-vi="Bằng cấp (phân cách bằng dấu phẩy):" data-en="Qualifications (comma-separated):">Bằng cấp (phân cách bằng dấu phẩy):</label><input type="text" name="Qualifications" placeholder="VD: Bằng A, Bằng B..."></div>
+                <div class="form-group"><label data-vi="Phân công lái tàu:" data-en="Assigned Spacecraft:">Phân công lái tàu:</label><select id="selectJetCode" name="JetCode" required></select></div>
+                <button type="submit" data-vi="Thêm phi công" data-en="Add Pilot">Thêm phi công</button>
             </form>
         </div>
-
         <div class="card" style="overflow-x: auto;">
-            <h3>Danh sách Phi Công</h3>
-            <table id="tablePilot">
-                <thead>
-                    <tr>
-                        <th>AstronomersID</th>
-                        <th>Name</th>
-                        <th>Rank</th>
-                        <th>Space Hours</th>
-                        <th>Bằng Cấp (Từ bảng Đa trị)</th>
-                        <th>JetCode (Tàu)</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <h3 data-vi="Danh sách Phi Công" data-en="Pilot List">Danh sách Phi Công</h3>
+            <table id="tablePilot"><thead><tr>
+                <th data-vi="Mã PC" data-en="ID">Mã PC</th><th data-vi="Họ tên" data-en="Name">Họ tên</th><th data-vi="Cấp bậc" data-en="Rank">Cấp bậc</th><th data-vi="Giờ bay" data-en="Hours">Giờ bay</th><th data-vi="Bằng cấp" data-en="Qualifications">Bằng cấp</th><th data-vi="Mã tàu" data-en="Jet Code">Mã tàu</th><th data-vi="Thao tác" data-en="Actions">Thao tác</th>
+            </tr></thead><tbody></tbody></table>
         </div>
     </div>
-
+    <script src="../js/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load dropdown mã tàu từ CSDL
             loadDropdown('ejets', 'selectJetCode', 'JetCode', 'JetType');
-
             const columns = ['AstronomersID', 'Name', 'Rank', 'SpaceHours', 'Qualifications', 'JetCode'];
             const reload = () => loadTable('pilots', 'tablePilot', columns, 'AstronomersID');
-            reload();
-            handleFormSubmit('formPilot', 'pilots', reload);
+            reload(); handleFormSubmit('formPilot', 'pilots', reload);
         });
     </script>
 </body>

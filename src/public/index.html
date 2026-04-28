@@ -1,69 +1,421 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mars Colony Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Font Awesome for icons -->
+    <title>Mars Colony Dashboard | Advanced Command Center</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;600&family=DM+Mono:wght@400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ══ THEME & LANG VARIABLES ══ */
+        :root {
+            --bg-color: #050510;
+            --container-bg: rgba(255, 255, 255, 0.05);
+            --container-border: rgba(255, 255, 255, 0.12);
+            --text-main: #f0ece8;
+            --text-dim: rgba(240, 236, 232, 0.4);
+            --accent: #5070ff;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #e0e5ec;
+            --container-bg: rgba(255, 255, 255, 0.7);
+            --container-border: rgba(255, 255, 255, 0.8);
+            --text-main: #2d3436;
+            --text-dim: rgba(45, 52, 54, 0.6);
+            --accent: #34495e;
+            --card-bg: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Logic hiển thị ngôn ngữ */
+        [data-lang="vi"] .en-text {
+            display: none;
+        }
+
+        [data-lang="en"] .vi-text {
+            display: none;
+        }
+
+        /* ══ RESET & ANIMATIONS ══ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+                filter: blur(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            transition: background 0.5s ease;
+        }
+
+        #space-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* ══ CONTROL PANEL (TOP RIGHT) ══ */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-ctrl {
+            background: var(--container-bg);
+            border: 1px solid var(--container-border);
+            padding: 8px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            color: var(--text-main);
+            font-size: 0.8rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ctrl:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ══ MAIN CONTAINER ══ */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: min(94vw, 1100px);
+            max-height: 90vh;
+            padding: 50px;
+            background: var(--container-bg);
+            border: 1px solid var(--container-border);
+            backdrop-filter: blur(25px) saturate(160%);
+            border-radius: 40px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            overflow-y: auto;
+            animation: pageIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        /* Lớp phủ Scanline tạo cảm giác màn hình radar */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(80, 112, 255, 0.1);
+            animation: scanline 4s linear infinite;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        header {
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 3.2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        header h1 i {
+            color: var(--accent);
+            margin-right: 15px;
+        }
+
+        header p {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+        }
+
+        /* ══ NAVIGATION GRID ══ */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .nav-card {
+            text-decoration: none;
+            color: inherit;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--container-border);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-card i {
+            font-size: 2rem;
+            color: var(--text-main);
+            transition: 0.3s;
+            opacity: 0.8;
+        }
+
+        .nav-card h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .nav-card p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Hover Effects */
+        .nav-card:hover {
+            background: rgba(80, 112, 255, 0.15);
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-card:hover i {
+            color: var(--accent);
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        .nav-card.active-node {
+            border-color: var(--accent);
+            background: rgba(80, 112, 255, 0.08);
+        }
+
+        .nav-card.active-node h3 {
+            color: var(--accent);
+        }
+
+        /* Scrollbar */
+        .container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: var(--text-dim);
+            border-radius: 10px;
+        }
+    </style>
 </head>
+
 <body>
+
+    <canvas id="space-canvas"></canvas>
+
+    <div class="controls">
+        <button class="btn-ctrl" id="langBtn">
+            <i class="fa-solid fa-language"></i>
+            <span class="vi-text">VNI</span>
+            <span class="en-text">ENG</span>
+        </button>
+        <button class="btn-ctrl" id="themeBtn">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+            <span class="vi-text">GIAO DIỆN</span>
+            <span class="en-text">THEME</span>
+        </button>
+    </div>
+
     <div class="container">
         <header>
             <h1><i class="fa-solid fa-rocket"></i> MARS COLONY</h1>
-            <p>Hệ thống Quản trị Dữ liệu Thuộc địa Sao Hỏa</p>
+            <p class="vi-text">Hệ thống Quản trị Dữ liệu Khu Định Cư Sao Hỏa</p>
+            <p class="en-text">Mars Settlement Data Management System</p>
         </header>
 
         <div class="nav-grid">
             <a href="pages/e_jet.html" class="nav-card">
                 <i class="fa-solid fa-space-shuttle"></i>
                 <h3>E-JET</h3>
-                <p>Quản lý Tàu Vũ Trụ</p>
+                <p class="vi-text">Quản lý Tàu Vũ Trụ</p>
+                <p class="en-text">Spacecraft Management</p>
             </a>
-            
+
             <a href="pages/house.html" class="nav-card">
                 <i class="fa-solid fa-house-chimney"></i>
                 <h3>HOUSE</h3>
-                <p>Quản lý Chỗ Ở</p>
+                <p class="vi-text">Quản lý Chỗ Ở</p>
+                <p class="en-text">Housing Management</p>
             </a>
 
             <a href="pages/job.html" class="nav-card">
                 <i class="fa-solid fa-briefcase"></i>
                 <h3>JOB</h3>
-                <p>Danh mục Công Việc</p>
+                <p class="vi-text">Danh mục Công Việc</p>
+                <p class="en-text">Job Directory</p>
             </a>
 
             <a href="pages/pilot.html" class="nav-card">
                 <i class="fa-solid fa-user-astronaut"></i>
                 <h3>PILOT</h3>
-                <p>Phi hành đoàn</p>
+                <p class="vi-text">Phi hành đoàn</p>
+                <p class="en-text">Flight Crew</p>
             </a>
 
             <a href="pages/trip.html" class="nav-card">
                 <i class="fa-solid fa-route"></i>
                 <h3>TRIP</h3>
-                <p>Chuyến bay khứ hồi</p>
+                <p class="vi-text">Chuyến bay khứ hồi</p>
+                <p class="en-text">Round-trip Flights</p>
             </a>
 
-            <a href="pages/colonist.html" class="nav-card" style="border-color: var(--primary);">
+            <a href="pages/colonist.html" class="nav-card active-node">
                 <i class="fa-solid fa-users"></i>
-                <h3 style="color: var(--primary);">COLONIST</h3>
-                <p>Dữ liệu Cư Dân</p>
+                <h3>COLONIST</h3>
+                <p class="vi-text">Dữ liệu Cư Dân</p>
+                <p class="en-text">Resident Data</p>
             </a>
 
             <a href="pages/dependent.html" class="nav-card">
                 <i class="fa-solid fa-children"></i>
                 <h3>DEPENDENT</h3>
-                <p>Người phụ thuộc</p>
+                <p class="vi-text">Người phụ thuộc</p>
+                <p class="en-text">Dependents</p>
             </a>
 
             <a href="pages/work.html" class="nav-card">
                 <i class="fa-solid fa-clipboard-user"></i>
                 <h3>WORK</h3>
-                <p>Phân công công việc</p>
+                <p class="vi-text">Phân công công việc</p>
+                <p class="en-text">Work Assignments</p>
             </a>
         </div>
     </div>
+
+    <script>
+        /* ── INTERACTIVE CANVAS ── */
+        const canvas = document.getElementById('space-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [], crewmates = [];
+        let mouse = { x: -1000, y: -1000 };
+        const colors = ['#ff4d4d', '#2ecc71', '#3498db', '#f1c40f', '#e67e22', '#9b59b6'];
+
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = []; crewmates = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 1.5, speed: Math.random() * 0.3 });
+            }
+            for (let i = 0; i < 6; i++) {
+                crewmates.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    size: 24, color: colors[i], vx: (Math.random() - 0.5) * 1, vy: (Math.random() - 0.5) * 1,
+                    rot: Math.random() * Math.PI * 2, rotS: (Math.random() - 0.5) * 0.02
+                });
+            }
+        }
+
+        function drawAmongUs(c) {
+            let dx = mouse.x - c.x; let dy = mouse.y - c.y; let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) { c.vx -= dx * 0.001; c.vy -= dy * 0.001; }
+            c.x += c.vx; c.y += c.vy; c.rot += c.rotS; c.vx *= 0.99; c.vy *= 0.99;
+            if (c.x < -50) c.x = canvas.width + 50; if (c.x > canvas.width + 50) c.x = -50;
+            if (c.y < -50) c.y = canvas.height + 50; if (c.y > canvas.height + 50) c.y = -50;
+            ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.rot);
+            ctx.fillStyle = c.color; ctx.beginPath(); ctx.roundRect(-c.size / 2, -c.size / 2, c.size, c.size, 6); ctx.fill();
+            ctx.fillStyle = '#87ceeb'; ctx.beginPath(); ctx.roundRect(0, -c.size / 4, c.size / 2, c.size / 3, 4); ctx.fill();
+            ctx.restore();
+        }
+
+        function animate() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            ctx.fillStyle = isDark ? '#050510' : '#e0e5ec';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                ctx.fillStyle = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.1)';
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+                s.x += s.speed; if (s.x > canvas.width) s.x = 0;
+            });
+            crewmates.forEach(drawAmongUs);
+            requestAnimationFrame(animate);
+        }
+
+        /* ── SWITCH LOGIC (THEME & LANG) ── */
+        document.getElementById('themeBtn').onclick = () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        };
+
+        document.getElementById('langBtn').onclick = () => {
+            const current = document.documentElement.getAttribute('data-lang');
+            document.documentElement.setAttribute('data-lang', current === 'vi' ? 'en' : 'vi');
+        };
+
+        /* ── PAGE TRANSITION ON NAV-CARD CLICK ── */
+        document.querySelectorAll('.nav-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                const container = document.querySelector('.container');
+                container.style.transition = 'opacity 0.4s, transform 0.4s, filter 0.4s';
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(-20px) scale(0.97)';
+                container.style.filter = 'blur(8px)';
+                setTimeout(() => { window.location.href = href; }, 350);
+            });
+        });
+
+        window.addEventListener('resize', init);
+        init(); animate();
+    </script>
 </body>
+
 </html>

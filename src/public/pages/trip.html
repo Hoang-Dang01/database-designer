@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Quản lý Chuyến Bay (TRIP)</title>
@@ -7,64 +7,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-rocket"></i> MARS</a>
+        <a href="e_jet.html"><i class="fa-solid fa-space-shuttle"></i> E-JET</a>
+        <a href="house.html"><i class="fa-solid fa-house-chimney"></i> HOUSE</a>
+        <a href="job.html"><i class="fa-solid fa-briefcase"></i> JOB</a>
+        <a href="pilot.html"><i class="fa-solid fa-user-astronaut"></i> PILOT</a>
+        <a href="trip.html" class="active"><i class="fa-solid fa-route"></i> TRIP</a>
+        <a href="colonist.html"><i class="fa-solid fa-users"></i> COLONIST</a>
+        <a href="dependent.html"><i class="fa-solid fa-children"></i> DEPENDENT</a>
+        <a href="work.html"><i class="fa-solid fa-clipboard-user"></i> WORK</a>
+        <div class="nav-controls">
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-lang');document.documentElement.setAttribute('data-lang',c==='vi'?'en':'vi')"><i class="fa-solid fa-language"></i><span class="vi-text">VNI</span><span class="en-text">ENG</span></button>
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')"><i class="fa-solid fa-circle-half-stroke"></i><span class="vi-text">GIAO DIỆN</span><span class="en-text">THEME</span></button>
+        </div>
+    </nav>
     <div class="container">
-        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
-        
-        <header>
-            <h2><i class="fa-solid fa-route"></i> Quản lý Chuyến Bay (TRIP)</h2>
-        </header>
-
+        <header><h2><i class="fa-solid fa-route"></i> <span data-vi="Quản lý Chuyến Bay" data-en="Trip Management">Quản lý Chuyến Bay</span></h2></header>
         <div class="card">
-            <h3>Thêm Chuyến Bay Mới</h3>
-            <br>
+            <h3 data-vi="Thêm Chuyến Bay Mới" data-en="Add New Trip">Thêm Chuyến Bay Mới</h3><br>
             <form id="formTrip">
-                <div class="form-group">
-                    <label>Mã Chuyến bay (TripID):</label>
-                    <input type="number" name="TripID" required>
-                </div>
-                <div class="form-group">
-                    <label>Ngày phóng (LaunchDate):</label>
-                    <input type="date" name="LaunchDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Ngày trở về dự kiến (ReturnDate):</label>
-                    <input type="date" name="ReturnDate">
-                </div>
-                <div class="form-group">
-                    <label>Tàu vũ trụ thực hiện (JetCode):</label>
-                    <select id="selectJetCode" name="JetCode" required></select>
-                </div>
-                <button type="submit">Thêm TRIP</button>
+                <div class="form-group"><label data-vi="Mã chuyến bay:" data-en="Trip ID:">Mã chuyến bay:</label><input type="number" name="TripID" required></div>
+                <div class="form-group"><label data-vi="Ngày phóng:" data-en="Launch Date:">Ngày phóng:</label><input type="date" name="LaunchDate" required></div>
+                <div class="form-group"><label data-vi="Ngày trở về dự kiến:" data-en="Expected Return Date:">Ngày trở về dự kiến:</label><input type="date" name="ReturnDate"></div>
+                <div class="form-group"><label data-vi="Tàu vũ trụ thực hiện:" data-en="Spacecraft:">Tàu vũ trụ thực hiện:</label><select id="selectJetCode" name="JetCode" required></select></div>
+                <button type="submit" data-vi="Thêm chuyến bay" data-en="Add Trip">Thêm chuyến bay</button>
             </form>
         </div>
-
         <div class="card" style="overflow-x: auto;">
-            <h3>Danh sách Chuyến Bay</h3>
-            <table id="tableTrip">
-                <thead>
-                    <tr>
-                        <th>TripID</th>
-                        <th>Launch Date</th>
-                        <th>Return Date</th>
-                        <th>JetCode (Tàu)</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <h3 data-vi="Danh sách Chuyến Bay" data-en="Trip List">Danh sách Chuyến Bay</h3>
+            <table id="tableTrip"><thead><tr>
+                <th data-vi="Mã CB" data-en="Trip ID">Mã CB</th><th data-vi="Ngày phóng" data-en="Launch Date">Ngày phóng</th><th data-vi="Ngày về" data-en="Return Date">Ngày về</th><th data-vi="Mã tàu" data-en="Jet Code">Mã tàu</th><th data-vi="Thao tác" data-en="Actions">Thao tác</th>
+            </tr></thead><tbody></tbody></table>
         </div>
     </div>
-
+    <script src="../js/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load dropdown mã tàu
             loadDropdown('ejets', 'selectJetCode', 'JetCode', 'JetType');
-
             const columns = ['TripID', 'LaunchDate', 'ReturnDate', 'JetCode'];
             const reload = () => loadTable('trips', 'tableTrip', columns, 'TripID');
-            reload();
-            handleFormSubmit('formTrip', 'trips', reload);
+            reload(); handleFormSubmit('formTrip', 'trips', reload);
         });
     </script>
 </body>

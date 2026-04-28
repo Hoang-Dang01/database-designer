@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark" data-lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Quản lý Cư Dân (COLONIST)</title>
@@ -7,111 +7,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-home"><i class="fa-solid fa-rocket"></i> MARS</a>
+        <a href="e_jet.html"><i class="fa-solid fa-space-shuttle"></i> E-JET</a>
+        <a href="house.html"><i class="fa-solid fa-house-chimney"></i> HOUSE</a>
+        <a href="job.html"><i class="fa-solid fa-briefcase"></i> JOB</a>
+        <a href="pilot.html"><i class="fa-solid fa-user-astronaut"></i> PILOT</a>
+        <a href="trip.html"><i class="fa-solid fa-route"></i> TRIP</a>
+        <a href="colonist.html" class="active"><i class="fa-solid fa-users"></i> COLONIST</a>
+        <a href="dependent.html"><i class="fa-solid fa-children"></i> DEPENDENT</a>
+        <a href="work.html"><i class="fa-solid fa-clipboard-user"></i> WORK</a>
+        <div class="nav-controls">
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-lang');document.documentElement.setAttribute('data-lang',c==='vi'?'en':'vi')"><i class="fa-solid fa-language"></i><span class="vi-text">VNI</span><span class="en-text">ENG</span></button>
+            <button class="btn-ctrl" onclick="let c=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',c==='dark'?'light':'dark')"><i class="fa-solid fa-circle-half-stroke"></i><span class="vi-text">GIAO DIỆN</span><span class="en-text">THEME</span></button>
+        </div>
+    </nav>
     <div class="container">
-        <a href="../index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại Bảng Điều Khiển</a>
-        
-        <header>
-            <h2><i class="fa-solid fa-users"></i> Quản lý Cư Dân (COLONIST)</h2>
-        </header>
-
+        <header><h2><i class="fa-solid fa-users"></i> <span data-vi="Quản lý Cư Dân" data-en="Colonist Management">Quản lý Cư Dân</span></h2></header>
         <div class="card">
-            <h3>Thêm Cư Dân Mới</h3>
-            <br>
+            <h3 data-vi="Thêm Cư Dân Mới" data-en="Add New Colonist">Thêm Cư Dân Mới</h3><br>
             <form id="formColonist">
                 <div class="nav-grid">
-                    <div class="form-group">
-                        <label>Mã cư dân (MarsColonizationID):</label>
-                        <input type="text" name="MarsColonizationID" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Họ và Tên (Name):</label>
-                        <input type="text" name="Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Giới tính (Gender):</label>
-                        <select name="Gender" required>
-                            <option value="Male">Nam</option>
-                            <option value="Female">Nữ</option>
-                            <option value="Other">Khác</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Ngày sinh (DateOfBirth):</label>
-                        <input type="date" name="DateOfBirth" required>
-                    </div>
+                    <div class="form-group"><label data-vi="Mã cư dân:" data-en="Colonist ID:">Mã cư dân:</label><input type="text" name="MarsColonizationID" required></div>
+                    <div class="form-group"><label data-vi="Họ và tên:" data-en="Full Name:">Họ và tên:</label><input type="text" name="Name" required></div>
+                    <div class="form-group"><label data-vi="Giới tính:" data-en="Gender:">Giới tính:</label>
+                        <select name="Gender" required><option value="Male" data-vi="Nam" data-en="Male">Nam</option><option value="Female" data-vi="Nữ" data-en="Female">Nữ</option><option value="Other" data-vi="Khác" data-en="Other">Khác</option></select></div>
+                    <div class="form-group"><label data-vi="Ngày sinh:" data-en="Date of Birth:">Ngày sinh:</label><input type="date" name="DateOfBirth" required></div>
                 </div>
-
                 <div class="nav-grid">
-                    <div class="form-group">
-                        <label>Địa chỉ Trái Đất (EarthAddress):</label>
-                        <input type="text" name="EarthAddress">
-                    </div>
-                    <div class="form-group">
-                        <label>Tình trạng hôn nhân (CivilStatus):</label>
-                        <select name="CivilStatus" required>
-                            <option value="Single">Độc thân</option>
-                            <option value="Married">Đã kết hôn</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Số điện thoại Trái Đất (ContactNo):</label>
-                        <input type="text" name="ContactNo">
-                    </div>
-                    <div class="form-group">
-                        <label>Bằng cấp đa trị (Cách nhau bằng dấu phẩy):</label>
-                        <input type="text" name="Qualifications" placeholder="BSc, MSc...">
-                    </div>
+                    <div class="form-group"><label data-vi="Địa chỉ Trái Đất:" data-en="Earth Address:">Địa chỉ Trái Đất:</label><input type="text" name="EarthAddress"></div>
+                    <div class="form-group"><label data-vi="Tình trạng hôn nhân:" data-en="Civil Status:">Tình trạng hôn nhân:</label>
+                        <select name="CivilStatus" required><option value="Single" data-vi="Độc thân" data-en="Single">Độc thân</option><option value="Married" data-vi="Đã kết hôn" data-en="Married">Đã kết hôn</option></select></div>
+                    <div class="form-group"><label data-vi="Số điện thoại:" data-en="Contact Number:">Số điện thoại:</label><input type="text" name="ContactNo"></div>
+                    <div class="form-group"><label data-vi="Bằng cấp (phân cách bằng dấu phẩy):" data-en="Qualifications (comma-separated):">Bằng cấp (phân cách bằng dấu phẩy):</label><input type="text" name="Qualifications" placeholder="BSc, MSc..."></div>
                 </div>
-
                 <div class="nav-grid">
-                    <div class="form-group">
-                        <label>Phân bổ Chỗ ở (LotNumber):</label>
-                        <select id="selectLotNumber" name="LotNumber"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Đi chuyến bay nào (TripID):</label>
-                        <select id="selectTripID" name="TripID" required></select>
-                    </div>
+                    <div class="form-group"><label data-vi="Phân bổ chỗ ở:" data-en="Assigned Housing:">Phân bổ chỗ ở:</label><select id="selectLotNumber" name="LotNumber"></select></div>
+                    <div class="form-group"><label data-vi="Chuyến bay:" data-en="Trip Assignment:">Chuyến bay:</label><select id="selectTripID" name="TripID" required></select></div>
                 </div>
-
-                <button type="submit">Thêm COLONIST</button>
+                <button type="submit" data-vi="Thêm cư dân" data-en="Add Colonist">Thêm cư dân</button>
             </form>
         </div>
-
         <div class="card" style="overflow-x: auto;">
-            <h3>Danh sách Cư Dân</h3>
-            <table id="tableColonist" style="font-size: 0.85rem;">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>DOB</th>
-                        <th>Earth Address</th>
-                        <th>Status</th>
-                        <th>Phone</th>
-                        <th>Qualifications (Đa trị)</th>
-                        <th>Lot Number</th>
-                        <th>Trip ID</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <h3 data-vi="Danh sách Cư Dân" data-en="Colonist List">Danh sách Cư Dân</h3>
+            <table id="tableColonist" style="font-size: 0.85rem;"><thead><tr>
+                <th data-vi="Mã CD" data-en="ID">Mã CD</th><th data-vi="Họ tên" data-en="Name">Họ tên</th><th data-vi="Giới tính" data-en="Gender">Giới tính</th><th data-vi="Ngày sinh" data-en="DOB">Ngày sinh</th><th data-vi="Địa chỉ" data-en="Address">Địa chỉ</th><th data-vi="Hôn nhân" data-en="Status">Hôn nhân</th><th data-vi="SĐT" data-en="Phone">SĐT</th><th data-vi="Bằng cấp" data-en="Qualifications">Bằng cấp</th><th data-vi="Chỗ ở" data-en="Lot">Chỗ ở</th><th data-vi="Chuyến bay" data-en="Trip">Chuyến bay</th><th data-vi="Thao tác" data-en="Actions">Thao tác</th>
+            </tr></thead><tbody></tbody></table>
         </div>
     </div>
-
+    <script src="../js/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load dropdowns
             loadDropdown('houses', 'selectLotNumber', 'LotNumber', 'LotNumber');
             loadDropdown('trips', 'selectTripID', 'TripID', 'LaunchDate');
-
             const columns = ['MarsColonizationID', 'Name', 'Gender', 'DateOfBirth', 'EarthAddress', 'CivilStatus', 'ContactNo', 'Qualifications', 'LotNumber', 'TripID'];
             const reload = () => loadTable('colonists', 'tableColonist', columns, 'MarsColonizationID');
-            reload();
-            handleFormSubmit('formColonist', 'colonists', reload);
+            reload(); handleFormSubmit('formColonist', 'colonists', reload);
         });
     </script>
 </body>

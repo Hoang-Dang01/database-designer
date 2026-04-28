@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS MarsColony;
+
 CREATE DATABASE MarsColony;
 
 USE MarsColony;
